@@ -1,0 +1,115 @@
+; Assignment 3.2.
+
+; setup
+; r0 = columns (5)
+        ____#_#     ; 5
+        _______     ; 0
+        #_#         ; wtr
+
+; r1 = rows (5)
+        ____#_#     ; 5
+        ______#     ; 1
+        #_#         ; wtr
+
+; r2 = current row
+        _______     ; 0
+        _____#_     ; 2
+        #_#         ; wtr
+
+
+; r3 = current column
+; r4 = underscore count
+; r5 = current underscore index
+
+        _______     ; 0       ; start with the first row
+        ___#        ; row
+        ##_         ; jmp
+
+; nextrow:
+____    ___#_#_     ; '\n'    ; print a newline character (0xA)
+        ###         ; out
+
+        _____#_     ; 2       ; increment the current row
+        #__         ; ldr
+        ______#     ; 1
+        _#_         ; add
+        _____#_     ; 2
+        #_#         ; wtr
+
+        ______#     ; 1       ; check if we've printed all rows
+        #__         ; ldr
+        _____#_     ; 2
+        #__         ; ldr
+        _##         ; sub
+        _#__        ; end
+        ##_         ; jmp
+
+
+; row:
+___#    ______#     ; 1       ; set the underscore count for the row
+        #__         ; ldr
+        ______#     ; 1
+        _#_         ; add
+        ____#__     ; 4
+        #_#         ; wtr
+
+        _______     ; 0       ; zero the current column
+        _____##     ; 3
+        #_#         ; wtr
+
+        _______     ; 0
+        ____#_#     ; 5
+        #_#         ; wtr     ; zero the current underscore index
+
+; print:
+__#_    _#___##     ; '#'     ; the raw ascii value (0x23)
+        ###         ; out
+
+        _____##     ; 3       ; increment the current column
+        #__         ; ldr
+        ______#     ; 1
+        _#_         ; add
+        _____##     ; 3
+        #_#         ; wtr
+
+        _______     ; 0       ; check if we're at the end of the row
+        #__         ; ldr
+        _____##     ; 3
+        #__         ; ldr
+        _##         ; sub
+        ____        ; nxtrow
+        ##_         ; jmp
+
+; unders:
+__##    #_#####     ; '_'     ; print an underscore (0x5F)
+        ###         ; out
+
+        ____#_#     ; 5       ; increment the current underscore index
+        #__         ; ldr
+        ______#     ; 1
+        _#_         ; add
+        ____#_#     ; 5
+        #_#         ; wtr
+
+        ____#__     ; 4       ; check if we've printed enough underscores
+        #__         ; ldr
+        ____#_#     ; 5
+        #__         ; ldr
+        _##         ; sub
+        __#_        ; print
+        ##_         ; jmp
+
+        _______     ; 0       ; check if we're at the end of the row
+        #__         ; ldr
+        _____##     ; 3
+        #__         ; ldr
+        _##         ; sub
+        ____        ; nxtrow
+        ##_         ; jmp
+
+        _______     ; 0
+        __##        ; unders
+        ##_         ; jmp
+
+; end:
+_#__    ___         ; nop
