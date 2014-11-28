@@ -6,7 +6,7 @@ language that can be completely programmed by only using `#` and `_` characters.
 
 The bytecode that is being generated also only consists of `#` and `_` symbols.
 
-Pound is a stackmachine that runs on the bytecode generated from a basic
+Pound is a stack machine that runs on the bytecode generated from a basic
 assembly language with only 9 instructions.
 
 Numbers are represented in binary but instead of
