@@ -168,11 +168,14 @@ int generate_bytecode(char* file_buffer, size_t file_buffer_size)
             {
                 for (size_t j = 0; j < labels_index; ++j)
                 {
-                    if (strcmp(unpadded_token, labels[j]))
+                    if (strcmp(unpadded_token, labels[j]) == 0)
                     {
                         strcpy(unpadded_token, label_instruction_addresses[j]);
                     }
                 }
+
+                // Set token_length
+                token_length = 8;
             }
 
             for (size_t j = 0; j < 8; ++j)
@@ -185,8 +188,8 @@ int generate_bytecode(char* file_buffer, size_t file_buffer_size)
                 lines[i][8 - token_length + j] = unpadded_token[j];
             }
 
-            // Pad the numeric constants with a # for push.
-            if (token_length == 7)
+            // Pad the numeric constants and label references with a # for push.
+            if (token_length == 7 || token_length == 8)
             {
                 lines[i][0] = '#';
             }
