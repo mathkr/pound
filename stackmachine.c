@@ -1,6 +1,8 @@
-#include <stdio.h>
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 #define STACK_SIZE 1024
 #define REGISTERS 8
