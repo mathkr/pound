@@ -199,8 +199,15 @@ int main(int argc, char* argv[])
         run_program();
 
         if (line) free(line);
-        free(stack);
+
+        for (size_t i = 0; i < program_length; ++i)
+        {
+            free(program[i]);
+        }
+        free(program);
+
         free(registers);
+        free(stack);
 
         exit(EXIT_SUCCESS);
     }
