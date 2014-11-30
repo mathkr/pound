@@ -1,20 +1,20 @@
 ## Pound
 
 Pound was born out of the nonsensical wish to solve a programming assignment
-that involves printing a matrix of `#` and `_` characters in a programming
-language that can be completely programmed by only using `#` and `_` characters.
+that involves printing a matrix of `X` and `_` characters in a programming
+language that can be completely programmed by only using `X` and `_` characters.
 
-The bytecode that is being generated also only consists of `#` and `_` symbols.
+The bytecode that is being generated also only consists of `X` and `_` symbols.
 
 Pound is a stack machine that runs on the bytecode generated from a basic
 assembly language with only 9 instructions.
 
 Numbers are represented in binary but instead of
-`0` and `1`, `_` and `#` are used.
+`0` and `1`, `_` and `X` are used.
 
 ```
 _ := 0
-# := 1
+X := 1
 ```
 
 Numeric constants can have up to 7 bits. The exact length of the tokens in the
@@ -73,13 +73,13 @@ Comments are denoted by the `;` symbol.
 +-------------+----------+----------------------------------------------+
 | NNNNNNN     | psh      | Pushes N (7 bits) onto the stack.            |
 | ___         | nop      | Does nothing.                                |
-| __#         | pop      | Decreases the sp.                            |
-| _#_         | add      | Adds two numbers from the stack.             |
-| _##         | sub      | Subtracts *(sp-1) from *(sp-2).              |
-| #__         | ldr      | Pushes from register *(sp-1).                |
-| #_#         | wtr      | Writes *(sp-2) to register *(sp-1).          |
-| ##_         | jmp      | Jumps to *(sp-1) if *(sp-2) is zero.         |
-| ###         | out      | Prints the ASCII value of *(sp-1) to stdout. |
+| __X         | pop      | Decreases the sp.                            |
+| _X_         | add      | Adds two numbers from the stack.             |
+| _XX         | sub      | Subtracts *(sp-1) from *(sp-2).              |
+| X__         | ldr      | Pushes from register *(sp-1).                |
+| X_X         | wtr      | Writes *(sp-2) to register *(sp-1).          |
+| XX_         | jmp      | Jumps to *(sp-1) if *(sp-2) is zero.         |
+| XXX         | out      | Prints the ASCII value of *(sp-1) to stdout. |
 +=============+==========+==============================================+
 ```
 
@@ -100,38 +100,38 @@ Print the numbers from 0 - 9 (mnemonics and clarifications in comments):
 
 ```
 ; r0
-     _##____    ; 48       the current numbers ascii value
+     _XX____    ; 48       the current numbers ascii value
      _______
-     #_#        ; wtr
+     X_X        ; wtr
 
 ; main:
 ____ _______    ; 0        output current ascii value
-     #__        ; ldr
-     ###        ; out
+     X__        ; ldr
+     XXX        ; out
 
-     ___#_#_    ; 10       output '\n'
-     ###        ; out
+     ___X_X_    ; 10       output '\n'
+     XXX        ; out
 
      _______    ; 0        increment current ascii value
-     #__        ; ldr
-     ______#    ; 1
-     _#_        ; add
+     X__        ; ldr
+     ______X    ; 1
+     _X_        ; add
      _______    ; 0
-     #_#        ; wtr
+     X_X        ; wtr
 
-     _###_#_    ; 58       48 + 10
+     _XXX_X_    ; 58       48 + 10
      _______    ; 0
-     #__        ; ldr      load r0
-     _##        ; sub      58 - r0
-     ___#       ; end
-     ##_        ; jmp      jmp if (58 - r0) is equal to zero
+     X__        ; ldr      load r0
+     _XX        ; sub      58 - r0
+     ___X       ; end
+     XX_        ; jmp      jmp if (58 - r0) is equal to zero
 
      _______    ; 0
      ____       ; main
-     ##_        ; jmp
+     XX_        ; jmp
 
 ; end:
-___# ___        ; nop
+___X ___        ; nop
 ```
 
 The output:
@@ -150,7 +150,7 @@ The output:
 
 ### Random notes
 
-Labels can only map to instructions up `_#######` (2^7 - 1) because the first
+Labels can only map to instructions up `_XXXXXXX` (2^7 - 1) because the first
 bit in each instruction is reserved for push instructions. This means, that in
 practice programs get too big very fast!
 

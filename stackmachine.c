@@ -4,6 +4,9 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#define ONE_CHAR 'X'
+#define ZERO_CHAR '_'
+
 #define STACK_SIZE 1024
 #define REGISTERS 8
 #define PROGRAM_BUFFER_SIZE 2048
@@ -39,7 +42,7 @@ int8 get_numeric_value(char* token)
     // Don't set bit 7 as it is always 1 to indicate a numeric constant.
     for (size_t bit = 0; bit < 7; ++bit)
     {
-        bool bit_is_set = token[7 - bit] == '#';
+        bool bit_is_set = token[7 - bit] == ONE_CHAR;
 
         if (bit_is_set)
         {
@@ -52,7 +55,7 @@ int8 get_numeric_value(char* token)
 
 void process_token(char* token)
 {
-    bool is_numeric_constant = token[0] == '#';
+    bool is_numeric_constant = token[0] == ONE_CHAR;
     if (is_numeric_constant)
     {
         int8 value = get_numeric_value(token);

@@ -1,34 +1,34 @@
 ; Prints the numbers from 0 - 9
 ; r0
-     _##____    ; 48       the current numbers ascii value
+     _XX____    ; 48       the current numbers ascii value
      _______
-     #_#        ; wtr
+     X_X        ; wtr
 
 ; main:
 ____ _______    ; 0        output current ascii value
-     #__        ; ldr
-     ###        ; out
+     X__        ; ldr
+     XXX        ; out
 
-     ___#_#_    ; 10       output '\n'
-     ###        ; out
+     ___X_X_    ; 10       output '\n'
+     XXX        ; out
 
      _______    ; 0        increment current ascii value
-     #__        ; ldr
-     ______#    ; 1
-     _#_        ; add
+     X__        ; ldr
+     ______X    ; 1
+     _X_        ; add
      _______    ; 0
-     #_#        ; wtr
+     X_X        ; wtr
 
-     _###_#_    ; 58       48 + 10
+     _XXX_X_    ; 58       48 + 10
      _______    ; 0
-     #__        ; ldr      load r0
-     _##        ; sub      58 - r0
-     ___#       ; end
-     ##_        ; jmp      jmp if (58 - r0) is equal to zero
+     X__        ; ldr      load r0
+     _XX        ; sub      58 - r0
+     ___X       ; end
+     XX_        ; jmp      jmp if (58 - r0) is equal to zero
 
      _______    ; 0
      ____       ; main
-     ##_        ; jmp
+     XX_        ; jmp
 
 ; end:
-___# ___        ; nop
+___X ___        ; nop

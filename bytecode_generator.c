@@ -4,11 +4,14 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define ONE_CHAR 'X'
+#define ZERO_CHAR '_'
+
 void to_binary_representation(char* sink, char n)
 {
     for (size_t bit = 0; bit < 8; ++bit)
     {
-        char c = (n >> bit) & 1 ? '#' : '_';
+        char c = (n >> bit) & 1 ? ONE_CHAR : ZERO_CHAR;
         sink[7 - bit] = c;
     }
 }
@@ -81,7 +84,7 @@ size_t read_lines(char** lines, char* file_buffer, size_t file_buffer_size)
 
         for (size_t j = 0; line[j]; ++j)
         {
-            if (line[j] == '#' || line[j] == '_')
+            if (line[j] == ONE_CHAR || line[j] == ZERO_CHAR)
             {
                 contains_valid_char = true;
             }
@@ -181,7 +184,7 @@ int generate_bytecode(char* file_buffer, size_t file_buffer_size)
 
             for (size_t j = 0; j < 8; ++j)
             {
-                lines[i][j] = '_';
+                lines[i][j] = ZERO_CHAR;
             }
 
             for (size_t j = 0; j < token_length; ++j)
@@ -189,10 +192,10 @@ int generate_bytecode(char* file_buffer, size_t file_buffer_size)
                 lines[i][8 - token_length + j] = unpadded_token[j];
             }
 
-            // Pad the numeric constants and label references with a # for push.
+            // Pad the numeric constants and label references with a 1 for push.
             if (token_length == 7 || token_length == 8)
             {
-                lines[i][0] = '#';
+                lines[i][0] = ONE_CHAR;
             }
 
             lines[i][8] = 0;
@@ -214,7 +217,7 @@ int generate_bytecode(char* file_buffer, size_t file_buffer_size)
             char c;
             while ((c = lines[i][line_index++]))
             {
-                if (c != '#' && c != '_')
+                if (c != ONE_CHAR && c != ZERO_CHAR)
                 {
                     printf("Bytecode generation error!\n Invalid character?\n");
                     return 0;
